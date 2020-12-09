@@ -5,8 +5,183 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Comida"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
+        Title="Comida"
+        Height="700"
+        Width="950"
+        Icon="fruit_food_apple.ico">
+
+    <Window.Resources>
+        <Style TargetType="CheckBox">
+            <Setter Property="Margin"
+                    Value="5" />
+        </Style>
+        <Style x:Key="textos"
+               TargetType="TextBlock">
+            <Setter Property="Margin"
+                    Value="10,5,10,0" />
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Margin"
+                    Value="10,0,10,5" />
+        </Style>
+        <Style TargetType="ComboBox">
+            <Setter Property="Margin"
+                    Value="10,0,10,0" />
+        </Style>
+        <Style x:Key="fotos"
+               TargetType="Image">
+            <Setter Property="Width"
+                    Value="175" />
+            <Setter Property="Height"
+                    Value="175" />
+            <Setter Property="Stretch"
+                    Value="UniformToFill" />
+            <Setter Property="Margin"
+                    Value="20,10,20,10" />
+        </Style>
+        <Style x:Key="iconos"
+               TargetType="Image">
+            <Setter Property="Height"
+                    Value="25" />
+        </Style>
+        <Style x:Key="bandera"
+               TargetType="Image">
+            <Setter Property="Height"
+                    Value="40" />
+        </Style>
+        <Style x:Key="titulo"
+               TargetType="TextBlock">
+            <Setter Property="FontSize"
+                    Value="42" />
+        </Style>
+        <local:VisibilityConverter x:Key="conversorVisibilidad" />
+        <local:FontConverter x:Key="conversorFuente" />
+        <local:FlagConverter x:Key="conversorBandera" />
+    </Window.Resources>
+
+    <Grid Background="LightSkyBlue">
+        <Border Background="White"
+                Margin="10"
+                BorderBrush="Black"
+                BorderThickness="1">
+            <Grid Margin="10"
+                  x:Name="contenedorPrincipal">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition Width="300"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <ListBox ItemsSource="{Binding}"
+                         ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel />
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Border BorderBrush="Black"
+                                    BorderThickness="1"
+                                    Background="AliceBlue"
+                                    Margin="10">
+                                <Border.Effect>
+                                    <DropShadowEffect />
+                                </Border.Effect>
+                                <DockPanel>
+                                    <TextBlock x:Name="nombreTextBlock"
+                                               Text="{Binding Nombre}"
+                                               FontFamily="{Binding Path=Tipo, Converter={StaticResource conversorFuente}}"
+                                               HorizontalAlignment="Center"
+                                               DockPanel.Dock="Top" />
+                                    <DockPanel LastChildFill="False"
+                                               Margin="20,0,20,10"
+                                               DockPanel.Dock="Bottom">
+                                        <Image Source="{Binding Path=Tipo, Converter={StaticResource conversorBandera}}"
+                                               Style="{StaticResource bandera}" />
+                                        <Image Source="soybean.png"
+                                               DockPanel.Dock="Right"
+                                               Style="{StaticResource iconos}"
+                                               Visibility="{Binding Path=Soja, Converter={StaticResource conversorVisibilidad}}" />
+                                        <Image Source="sulfide.png"
+                                               DockPanel.Dock="Right"
+                                               Style="{StaticResource iconos}"
+                                               Visibility="{Binding Path=Sulfitos, Converter={StaticResource conversorVisibilidad}}" />
+                                        <Image Source="milk.png"
+                                               DockPanel.Dock="Right"
+                                               Style="{StaticResource iconos}"
+                                               Visibility="{Binding Path=Leche, Converter={StaticResource conversorVisibilidad}}" />
+                                        <Image Source="gluten.png"
+                                               DockPanel.Dock="Right"
+                                               Style="{StaticResource iconos}"
+                                               Visibility="{Binding Path=Gluten, Converter={StaticResource conversorVisibilidad}}" />
+                                    </DockPanel>
+                                    <Image Source="{Binding Imagen}"
+                                           Style="{StaticResource fotos}" />
+                                </DockPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+
+                <StackPanel Orientation="Vertical"
+                            Background="LightGray"
+                            Grid.Column="1"
+                            Margin="10,0,0,0">
+                    <TextBlock Style="{StaticResource textos}"
+                               Text="Nombre del plato"
+                               TextWrapping="Wrap" />
+                    <TextBox Text="{Binding Path=Nombre, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBlock Style="{StaticResource textos}"
+                               Text="Foto del plato" />
+                    <TextBox Text="{Binding Path=Imagen, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             TextWrapping="Wrap" />
+                    <TextBlock Style="{StaticResource textos}"
+                               Text="Tipo de comida" />
+                    <ComboBox>
+                        <ComboBoxItem>
+                            <TextBlock Text="China" />
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            <TextBlock Text="Americana" />
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            <TextBlock Text="Mexicana" />
+                        </ComboBoxItem>
+                    </ComboBox>
+                    <GroupBox Header="Alérgenos"
+                              BorderBrush="Black"
+                              Margin="10">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <CheckBox Content="Leche"
+                                      Grid.Row="0"
+                                      Grid.Column="0"
+                                      IsChecked="{Binding Path=Leche}" />
+                            <CheckBox Content="Soja"
+                                      Grid.Row="0"
+                                      Grid.Column="1"
+                                      IsChecked="{Binding Path=Soja}" />
+                            <CheckBox Content="Gluten"
+                                      Grid.Row="1"
+                                      Grid.Column="0"
+                                      IsChecked="{Binding Path=Gluten}" />
+                            <CheckBox Content="Sulfitos"
+                                      Grid.Row="1"
+                                      Grid.Column="1"
+                                      IsChecked="{Binding Path=Sulfitos}" />
+                        </Grid>
+                    </GroupBox>
+                </StackPanel>
+            </Grid>
+        </Border>
     </Grid>
 </Window>
+
+    

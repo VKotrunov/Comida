@@ -34,6 +34,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>fruit_food_apple.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -55,6 +58,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="FlagConverter.cs" />
+    <Compile Include="FontConverter.cs" />
+    <Compile Include="VisibilityConverter.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -69,6 +75,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Plato.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -93,6 +100,24 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="china.png" />
+    <Resource Include="fruit_food_apple.ico" />
+    <Resource Include="gluten.png" />
+    <Resource Include="mexico.png" />
+    <Resource Include="milk.png" />
+    <Resource Include="soybean.png" />
+    <Resource Include="sulfide.png" />
+    <Resource Include="united_states.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="burguer.jpg" />
+    <Resource Include="cerdoagridulce.jpg" />
+    <Resource Include="dumplings.jpg" />
+    <Resource Include="fajitas.jpg" />
+    <Resource Include="hotdog.jpg" />
+    <Resource Include="tacos.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

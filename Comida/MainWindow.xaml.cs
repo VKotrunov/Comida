@@ -20,9 +20,13 @@ namespace Comida
     /// </summary>
     public partial class MainWindow : Window
     {
+        List<Plato> platos;
         public MainWindow()
         {
             InitializeComponent();
+            string ruta = @"C:\Users\ghost\Google Drive\2DAM\DINT\UT5\Proyectos\Comida\Comida";
+            platos = Plato.GetSamples(ruta);
+            contenedorPrincipal.DataContext = platos;
         }
     }
 }
