@@ -21,11 +21,18 @@ namespace Comida
     public partial class MainWindow : Window
     {
         List<Plato> platos;
+        List<String> tipo;
         public MainWindow()
         {
             InitializeComponent();
-            string ruta = @"C:\Users\ghost\Google Drive\2DAM\DINT\UT5\Proyectos\Comida\Comida";
+            //string ruta = @"C:\Users\ghost\Google Drive\2DAM\DINT\UT5\Proyectos\Comida\Comida";
+            string ruta = @"C:\Users\Alumnot1\Google Drive\2DAM\DINT\UT5\Proyectos\Comida\Comida";
             platos = Plato.GetSamples(ruta);
+            tipo = new List<string>();
+            tipo.Add("China");
+            tipo.Add("Americana");
+            tipo.Add("Mexicana");
+            tiposComboBox.ItemsSource = tipo;
             contenedorPrincipal.DataContext = platos;
         }
     }

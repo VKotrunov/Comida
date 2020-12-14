@@ -31,9 +31,9 @@
         <Style x:Key="fotos"
                TargetType="Image">
             <Setter Property="Width"
-                    Value="175" />
+                    Value="200" />
             <Setter Property="Height"
-                    Value="175" />
+                    Value="170" />
             <Setter Property="Stretch"
                     Value="UniformToFill" />
             <Setter Property="Margin"
@@ -48,11 +48,6 @@
                TargetType="Image">
             <Setter Property="Height"
                     Value="40" />
-        </Style>
-        <Style x:Key="titulo"
-               TargetType="TextBlock">
-            <Setter Property="FontSize"
-                    Value="42" />
         </Style>
         <local:VisibilityConverter x:Key="conversorVisibilidad" />
         <local:FontConverter x:Key="conversorFuente" />
@@ -72,7 +67,8 @@
                 </Grid.ColumnDefinitions>
 
                 <ListBox ItemsSource="{Binding}"
-                         ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                         ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
+                         x:Name="listaListBox">
                     <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>
                             <WrapPanel />
@@ -88,16 +84,18 @@
                                     <DropShadowEffect />
                                 </Border.Effect>
                                 <DockPanel>
-                                    <TextBlock x:Name="nombreTextBlock"
-                                               Text="{Binding Nombre}"
-                                               FontFamily="{Binding Path=Tipo, Converter={StaticResource conversorFuente}}"
-                                               HorizontalAlignment="Center"
-                                               DockPanel.Dock="Top" />
+                                    <Viewbox Height="50" Width="250" DockPanel.Dock="Top">
+                                        <TextBlock x:Name="nombreTextBlock"
+                                                   Text="{Binding Nombre}"
+                                                   FontFamily="{Binding Path=Tipo, Converter={StaticResource conversorFuente}}"
+                                                   HorizontalAlignment="Center"/>
+                                    </Viewbox>
                                     <DockPanel LastChildFill="False"
                                                Margin="20,0,20,10"
                                                DockPanel.Dock="Bottom">
                                         <Image Source="{Binding Path=Tipo, Converter={StaticResource conversorBandera}}"
-                                               Style="{StaticResource bandera}" />
+                                               Style="{StaticResource bandera}"
+                                               ToolTip="{Binding Path=Tipo}"/>
                                         <Image Source="soybean.png"
                                                DockPanel.Dock="Right"
                                                Style="{StaticResource iconos}"
@@ -126,7 +124,9 @@
                 <StackPanel Orientation="Vertical"
                             Background="LightGray"
                             Grid.Column="1"
-                            Margin="10,0,0,0">
+                            Margin="10,0,0,0"
+                            x:Name="contenedorFomulario" 
+                            DataContext="{Binding ElementName=listaListBox, Path=SelectedItem}">
                     <TextBlock Style="{StaticResource textos}"
                                Text="Nombre del plato"
                                TextWrapping="Wrap" />
@@ -137,17 +137,7 @@
                              TextWrapping="Wrap" />
                     <TextBlock Style="{StaticResource textos}"
                                Text="Tipo de comida" />
-                    <ComboBox>
-                        <ComboBoxItem>
-                            <TextBlock Text="China" />
-                        </ComboBoxItem>
-                        <ComboBoxItem>
-                            <TextBlock Text="Americana" />
-                        </ComboBoxItem>
-                        <ComboBoxItem>
-                            <TextBlock Text="Mexicana" />
-                        </ComboBoxItem>
-                    </ComboBox>
+                    <ComboBox x:Name="tiposComboBox" SelectedItem="{Binding Path=Tipo}"/>
                     <GroupBox Header="Alérgenos"
                               BorderBrush="Black"
                               Margin="10">
